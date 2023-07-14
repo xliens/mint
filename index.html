@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>x-liens</title>
+    <link rel="icon" href="https://ipfs.io/ipfs/bafybeifeoeua66c3o3cjsm3pzeba4ax7owjmvupvwxreonzax5hay5smgu/430-1.gif" type="image/png">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.6.0/ethers.umd.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+      h1 {
+        text-align: center;
+        font-family: "Comic Sans MS", cursive;
+        font-size: 48px;
+      }
+      body {
+        animation: backgroundLoop 30s infinite;
+        background-repeat: repeat-y;
+        background-size: cover;
+      }
+      .container {
+        width: 50%;
+        height: 420px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #333;
+        border-radius: 10px;
+        background-image: url('https://ipfs.io/ipfs/bafybeifeoeua66c3o3cjsm3pzeba4ax7owjmvupvwxreonzax5hay5smgu/mint-bg.gif'); /* Add the path to your background image */
+        background-size: 100% 100%; /* Make the image fit to the size of the container */
+        background-position: center;
+        background-color: rgba(0, 0, 0, 1);
+        top: 1200px;
+        position: relative;
+        z-index: 999;
+      }
+      @media (max-width: 1200px) {
+        .container {
+          width: 100%;
+        }
+      }
+      @media (max-width: 480px) {
+        .container {
+          width: 100%;
+        }
+      }
+      .counter-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+      .text-block {
+        text-align: center;
+        color: grey;
+        margin-top: 400px;
+        margin-bottom: 10px;
+        z-index: 1;
+        font-weight: 1000;
+        font-size: 20px;
+        font-family: "Comic Sans MS", cursive;
+      }
+      .text-mint {
+        /*          text-align: center; */
+        color: grey;
+        /*          margin-top: 400px; */
+        /*          margin-bottom: 10px; */
+        /*          z-index: 1; */
+        font-weight: 1000;
+        font-size: 15px;
+        font-family: "Comic Sans MS", cursive;
+      }
+      @media (max-width: 1200px) {
+        .text-mint {
+          font-size: 15px;
+        }
+      }
+      @media (max-width: 480px) {
+        .text-mint {
+          font-size: 10px;
+        }
+      }
+      @keyframes backgroundLoop {
+        0% {
+          background-image: url("https://ipfs.io/ipfs/bafybeifeoeua66c3o3cjsm3pzeba4ax7owjmvupvwxreonzax5hay5smgu/web.png");
+        }
+        70% {
+          background-image: url("https://ipfs.io/ipfs/bafybeifeoeua66c3o3cjsm3pzeba4ax7owjmvupvwxreonzax5hay5smgu/2.gif");
+        }
+        85% {
+          background-image: url("https://ipfs.io/ipfs/bafybeifeoeua66c3o3cjsm3pzeba4ax7owjmvupvwxreonzax5hay5smgu/1.gif");
+        }
+        100% {
+          background-image: url("https://ipfs.io/ipfs/bafybeifeoeua66c3o3cjsm3pzeba4ax7owjmvupvwxreonzax5hay5smgu/430-1.gif");
+        }
+      }
+      .carousel-item img {
+        object-fit: cover;
+        width: 100%;
+        height: 300px;
+      }
+      .grid {
+        display: grid;
+        grid-gap: 20px;
+        grid-template-columns: repeat(1, 10fr);
+        position: fixed;
+        top: 0; /* Position the grid at the top */
+        left: 0; /* Position the grid at the extreme left */
+        width: 100%;
+        padding: 10px; /* Add some padding to the grid */
+        box-sizing: border-box; /* Include padding in the width */
+        z-index: 10;
+        opacity: 1; /* Initial opacity */
+        transition: opacity 0.5s; /* Smooth transition for opacity */
+      }
+      .grid-item {
+        width: 100%;
+      }
+      .grid-item img {
+        width: 100%;
+        height: auto;
+        max-width: 250px;
+      }
+      .gridR {
+        display: grid;
+        grid-gap: 20px;
+        grid-template-columns: repeat(1, 10fr);
+        position: fixed;
+        top: 0; /* Position the grid at the top */
+        padding: 10px; /* Add some padding to the grid */
+        box-sizing: border-box; /* Include padding in the width */
+        right: 0; /* Position the grid at the extreme left */
+        z-index: 10;
+        opacity: 1; /* Initial opacity */
+        transition: opacity 0.5s; /* Smooth transition for opacity */
+      }
+      .grid-itemr {
+        width: 100%;
+      }
+      .grid-itemr img {
+        width: 100%;
+        height: auto;
+        max-width: 250px;
+      }
+      @media (max-width: 1200px) {
+        .grid-item img {
+          max-width: 80px;
+        }
+        .grid-itemr img {
+          max-width: 80px;
+        }
+      }
+      @media (max-width: 480px) {
+        .grid-item img {
+          max-width: 80px;
+        }
+        .grid-itemr img {
+          max-width: 80px;
+        }
+      }
+      .social-button {
+        display: block;
+        position: fixed;
+        bottom: 1%; /* Adjust the distance from the bottom as needed */
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        z-index: 1;
+      }
+      .social-button:hover {
+        background-color: black;
+      }
+      .buttonn1 {
+        display: block;
+        position: absolute;
+        top: 2200px; /* Adjust the distance from the bottom as needed */
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        z-index: 999;
+        font-family: "Comic Sans MS", cursive;
+      }
+      .buttonn1:hover {
+        background-color: black;
+      }
+      .buttonn2 {
+        display: block;
+        position: absolute;
+        top: 2400px; /* Adjust the distance from the bottom as needed */
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        z-index: 999;
+        background-color: rgba(0, 0, 0, 1);
+        font-family: "Comic Sans MS", cursive;
+      }
+      .buttonn2:hover {
+        background-color: black;
+      }
+      .buttonn3 {
+        display: block;
+        position: absolute;
+        top: 2300px; /* Adjust the distance from the bottom as needed */
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        z-index: 999;
+        background-color: rgba(0, 0, 0, 0.5);
+        font-family: "Comic Sans MS", cursive;
+      }
+      .buttonn3:hover {
+        background-color: black;
+      }
+      .buttonConnect {
+        display: block;
+        position: absolute;
+        /*          top: 2400px; Adjust the distance from the bottom as needed */
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        z-index: 999;
+        background-color: rgba(0, 0, 0, 0.5);
+        font-family: "Comic Sans MS", cursive;
+      }
+      .buttonConnect:hover {
+        background-color: black;
+      }
+      .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+      .popup-content {
+        background-image: url("https://ipfs.io/ipfs/bafybeieak4tjqvngswtysu2lqvokw5f7iz2w4qygille3764vk3edlrif4/512-3.gif");
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 800px;
+        height: 800px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        padding: 20px;
+        border-radius: 10px;
+        font-family: "Comic Sans MS", cursive;
+      }
+      .popup-content h1 {
+        font-size: 36px;
+        margin-bottom: 20px;
+        font-family: "Comic Sans MS", cursive;
+      }
+      .close-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        font-family: "Comic Sans MS", cursive;
+      }
+      .popup-overlayT {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+      .popup-traits {
+        background-image: url("https://ipfs.io/ipfs/bafybeifeoeua66c3o3cjsm3pzeba4ax7owjmvupvwxreonzax5hay5smgu/5.gif");
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 800px;
+        height: 800px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        padding: 20px;
+        border-radius: 10px;
+        font-family: "Comic Sans MS", cursive;
+      }
+      @media (max-width: 1200px) {
+        .popup-content {
+          width: 500px;
+          height: 500px;
+        }
+        .popup-traits {
+          width: 500px;
+          height: 500px;
+        }
+      }
+      @media (max-width: 480px) {
+        .popup-content {
+          width: 500px;
+          height: 500px;
+        }
+        .popup-traits {
+          width: 500px;
+          height: 500px;
+        }
+      }
+      #mint-section {
+        display: none;
+      }
+      #loading-bar {
+            width: 100%;
+            height: 5px;
+            background-color: #ddd;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+        }
+
+        #loading-bar .bar {
+            width: 0%;
+            height: 100%;
+            background-color: #39FF14; /* Neon green color */
+         }
+    </style>
+  </head>
+  <body>
+    <div id="loading-bar">
+        <div class="bar"></div>
+    </div>
+    <div class="text-block">
+      <p>an 0riGinal from a team of nobodys</p>
+      <p>
+        x-chromosomed, neon pigmented xliens from outer space on unseen textures
+        and prints, donning futuristic street wear
+      </p>
+      <p>©️©️©️</p>
+    </div>
+    <div class="grid" id="grid">
+      <div class="grid-item">
+        <img
+          src="https://ipfs.io/ipfs/bafybeifeoeua66c3o3cjsm3pzeba4ax7owjmvupvwxreonzax5hay5smgu/1.png"
+          alt="Image 1"
+        />
+      </div>
+      <div class="grid-item">
+        <img
+          src="https://ipfs.io/ipfs/bafybeifeoeua66c3o3cjsm3pzeba4ax7owjmvupvwxreonzax5hay5smgu/3.png"
+          alt="Image 2"
+        />
+      </div>
+      <div class="grid-item">
+        <img
+          src="https://ipfs.io/ipfs/bafybeifeoeua66c3o3cjsm3pzeba4ax7owjmvupvwxreonzax5hay5smgu/7.png"
+          alt="Image 3"
+        />
+      </div>
+      <!--     <div class="grid-item">
+            <img src="https://ipfs.io/ipfs/bafybeicggd5we65hpse5xh6b2j4o4e77xwko7tjg4hgzjae7umt2uzfgzu/7.png" alt="Image 4">
+            </div>
+            <div class="grid-item">
+            <img src="https://ipfs.io/ipfs/bafybeicggd5we65hpse5xh6b2j4o4e77xwko7tjg4hgzjae7umt2uzfgzu/9.png" alt="Image 4">
+            </div> -->
+    </div>
+    <div class="gridR" id="gridR">
+      <div class="grid-itemr">
+        <img
+          src="https://ipfs.io/ipfs/bafybeifeoeua66c3o3cjsm3pzeba4ax7owjmvupvwxreonzax5hay5smgu/2.png"
+          alt="Image 4"
+        />
+      </div>
+      <div class="grid-itemr">
+        <img
+          src="https://ipfs.io/ipfs/bafybeifeoeua66c3o3cjsm3pzeba4ax7owjmvupvwxreonzax5hay5smgu/4.png"
+          alt="Image 4"
+        />
+      </div>
+      <div class="grid-itemr">
+        <img
+          src="https://ipfs.io/ipfs/bafybeifeoeua66c3o3cjsm3pzeba4ax7owjmvupvwxreonzax5hay5smgu/6.png"
+          alt="Image 4"
+        />
+      </div>
+      <!--     <div class="grid-itemr">
+            <img src="https://ipfs.io/ipfs/bafybeicggd5we65hpse5xh6b2j4o4e77xwko7tjg4hgzjae7umt2uzfgzu/8.png" alt="Image 4">
+            </div>
+            <div class="grid-itemr">
+            <img src="https://ipfs.io/ipfs/bafybeicggd5we65hpse5xh6b2j4o4e77xwko7tjg4hgzjae7umt2uzfgzu/10.png" alt="Image 4">
+            </div> -->
+      <button class="social-button" onclick="scrollToSection()">to Mint</button>
+    </div>
+    <script>
+         window.addEventListener('load', function () {
+              document.getElementById('loading-bar').style.display = 'none';
+          });
+        window.addEventListener("scroll", function () {
+        var grid = document.getElementById("grid");
+        var scrollHeight = window.pageYOffset; /* Get the scroll height */
+
+        // Calculate the opacity based on scroll position
+        var maxOpacity = 1;
+        var minOpacity = 0;
+        var maxScrollHeight = 5000; // Adjust this value as needed
+        var opacity = 1 - scrollHeight / maxScrollHeight;
+
+        // Ensure opacity is within the valid range
+        opacity = Math.max(opacity, minOpacity);
+        opacity = Math.min(opacity, maxOpacity);
+
+        // Apply the opacity to the grid
+        grid.style.opacity = opacity.toFixed(2);
+      });
+
+      window.addEventListener("scroll", function () {
+        var grid = document.getElementById("gridR");
+        var scrollHeight = window.pageYOffset; /* Get the scroll height */
+
+        // Calculate the opacity based on scroll position
+        var maxOpacity = 1;
+        var minOpacity = 0;
+        var maxScrollHeight = 5000; // Adjust this value as needed
+        var opacity = 1 - scrollHeight / maxScrollHeight;
+
+        // Ensure opacity is within the valid range
+        opacity = Math.max(opacity, minOpacity);
+        opacity = Math.min(opacity, maxOpacity);
+
+        // Apply the opacity to the grid
+        grid.style.opacity = opacity.toFixed(2);
+      });
+      function scrollToSection() {
+        var section = document.getElementById("section-anchor");
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    </script>
+    <button class="buttonn1" onclick="openPopup()">info</button>
+    <button class="buttonn3" onclick="openPopupTraits()">traits</button>
+    <a href="https://twitter.com" target="_blank" class="buttonn2">
+      <i class="fab fa-twitter"></i> Follow us on Twitter
+    </a>
+    <div class="popup-overlay" id="popupOverlay">
+      <div class="popup-content">
+        <p>supply: 8888</p>
+        <p>1 free per wallet</p>
+        <p>0.0088 for more</p>
+        <p>maximum 10 per transaction</p>
+        <p>5% Royalties</p>
+        <span class="close-button" onclick="closePopup()">&times;</span>
+      </div>
+    </div>
+    <div class="popup-overlayT" id="popupTraits">
+      <div class="popup-traits">
+        <span class="close-button" onclick="closePopupTraits()">&times;</span>
+      </div>
+    </div>
+    <div class="container" id="section-anchor">
+      <button id="mintBt" class="buttonConnect" onclick="">Connect</button>
+      <div id="mint-section">
+        <div id="address" class="text-mint"></div>
+        <br>
+        <div id="freeMints" class="text-mint"></div>
+        <br>
+        <div id="supply" class="text-mint"></div>
+        <br>
+        <div id="sale-active" class="text-mint"></div>
+        <br>
+        <div class="counter-container">
+          <p><span id="counter" class="text-mint">0</span></p>
+          <button onclick="decrement()">-</button>
+          <button onclick="increment()">+</button>
+          <br>
+        </div>
+        <button id="mint-button" class="buttonConnect">Mint NFT</button>
+      </div>
+      <div id="error-section">
+          <div id="errorText" class="text-mint"></div>
+      </div>
+    </div>
+    <script>
+      const mintButton = document.querySelector("#mint-button");
+      const mintSection = document.querySelector("#mint-section");
+      const errorSection = document.querySelector("#error-section");
+      const supply = document.querySelector("#supply");
+      const saleActive = document.querySelector("#sale-active");
+      const errorText = document.querySelector("#errorText");
+      const contractAddress = '0x7D2B0585A67B53633822f6BB0bd61c2e536576fc';
+      const contractAbi = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ApprovalCallerNotOwnerNorApproved","type":"error"},{"inputs":[],"name":"ApprovalQueryForNonexistentToken","type":"error"},{"inputs":[],"name":"BalanceQueryForZeroAddress","type":"error"},{"inputs":[],"name":"InvalidQueryRange","type":"error"},{"inputs":[],"name":"MintERC2309QuantityExceedsLimit","type":"error"},{"inputs":[],"name":"MintToZeroAddress","type":"error"},{"inputs":[],"name":"MintZeroQuantity","type":"error"},{"inputs":[{"internalType":"address","name":"operator","type":"address"}],"name":"OperatorNotAllowed","type":"error"},{"inputs":[],"name":"OwnerQueryForNonexistentToken","type":"error"},{"inputs":[],"name":"OwnershipNotInitializedForExtraData","type":"error"},{"inputs":[],"name":"TransferCallerNotOwnerNorApproved","type":"error"},{"inputs":[],"name":"TransferFromIncorrectOwner","type":"error"},{"inputs":[],"name":"TransferToNonERC721ReceiverImplementer","type":"error"},{"inputs":[],"name":"TransferToZeroAddress","type":"error"},{"inputs":[],"name":"URIQueryForNonexistentToken","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"approved","type":"address"},{"indexed":true,"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"operator","type":"address"},{"indexed":false,"internalType":"bool","name":"approved","type":"bool"}],"name":"ApprovalForAll","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"fromTokenId","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"toTokenId","type":"uint256"},{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"ConsecutiveTransfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":true,"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"OPERATOR_FILTER_REGISTRY","outputs":[{"internalType":"contract IOperatorFilterRegistry","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"operator","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"approve","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"baseURI","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"quantity","type":"uint256"}],"name":"devMint","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"explicitOwnershipOf","outputs":[{"components":[{"internalType":"address","name":"addr","type":"address"},{"internalType":"uint64","name":"startTimestamp","type":"uint64"},{"internalType":"bool","name":"burned","type":"bool"},{"internalType":"uint24","name":"extraData","type":"uint24"}],"internalType":"struct IERC721A.TokenOwnership","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256[]","name":"tokenIds","type":"uint256[]"}],"name":"explicitOwnershipsOf","outputs":[{"components":[{"internalType":"address","name":"addr","type":"address"},{"internalType":"uint64","name":"startTimestamp","type":"uint64"},{"internalType":"bool","name":"burned","type":"bool"},{"internalType":"uint24","name":"extraData","type":"uint24"}],"internalType":"struct IERC721A.TokenOwnership[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"freeMint","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"getApproved","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"operator","type":"address"}],"name":"isApprovedForAll","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"maxPerTransaction","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"maxPerWallet","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"maxSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"mint","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"numberMinted","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"ownerOf","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"price","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"safeTransferFrom","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"},{"internalType":"bytes","name":"_data","type":"bytes"}],"name":"safeTransferFrom","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"saleActive","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"operator","type":"address"},{"internalType":"bool","name":"approved","type":"bool"}],"name":"setApprovalForAll","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"baseURI_","type":"string"}],"name":"setBaseURI","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newPrice","type":"uint256"}],"name":"setPrice","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newfreeMint","type":"uint256"}],"name":"setfreeMint","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newmaxPerTransaction","type":"uint256"}],"name":"setmaxPerTransaction","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newmaxPerWallet","type":"uint256"}],"name":"setmaxPerWallet","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"startSale","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"stopSale","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes4","name":"interfaceId","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"tokenURI","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"tokensOfOwner","outputs":[{"internalType":"uint256[]","name":"","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"uint256","name":"start","type":"uint256"},{"internalType":"uint256","name":"stop","type":"uint256"}],"name":"tokensOfOwnerIn","outputs":[{"internalType":"uint256[]","name":"","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"transferFrom","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"quantity","type":"uint256"}],"name":"treasuryMint","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"}];
+      
+      
+      function openPopup() {
+        var popupOverlay = document.getElementById("popupOverlay");
+        popupOverlay.style.display = "flex";
+      }
+      
+      function openPopupTraits() {
+        var popupOverlay = document.getElementById("popupTraits");
+        popupOverlay.style.display = "flex";
+      }
+
+      function closePopup() {
+        var popupOverlay = document.getElementById("popupOverlay");
+        popupOverlay.style.display = "none";
+      }
+      
+      function closePopupTraits() {
+        var popupOverlay = document.getElementById("popupTraits");
+        popupOverlay.style.display = "none";
+      }
+
+      const connectMetaMask = async () => {
+        if (typeof window.ethereum !== "undefined") {
+          try {
+            await window.ethereum.request({ method: "eth_requestAccounts" });
+            console.log("MetaMask connected");
+
+            const web3 = new Web3(window.ethereum);
+            const contract = new web3.eth.Contract(contractAbi, contractAddress);
+            
+            let totalSupply = await contract.methods.totalSupply().call()                                                  
+            let maxSupply = await contract.methods.maxSupply().call()
+            
+            const publicActive = await contract.methods.saleActive().call();
+            
+            const mintNFT = async (amount, payableAmount) => {
+            try {
+              // const proofBytes32 = proof.map((item) => web3.utils.hexToBytes(item));
+              const transaction = await contract.methods.mint(amount).send({
+                from: account,
+                value: web3.utils.toWei(payableAmount.toString(), "ether"),
+              });
+              console.log("Mint transaction:", transaction);
+            } catch (error) {
+              console.error("Error minting NFT:", error);
+            }
+          };
+
+            // Retrieve the current account address
+            const accounts = await web3.eth.getAccounts();
+            const account = accounts[0];
+            console.log("account connected", accounts[0]);
+            const connectedAddress = accounts[0];
+            const mintedValue = await contract.methods.numberMinted(account).call();
+            connectButton.style.display = "none";
+            mintSection.style.display = "block";
+            
+            let remainingMint = Math.max(0, 1 - mintedValue);
+            
+            address.innerHTML = `Connected Address: ${connectedAddress}`;
+            freeMints.innerHTML = `Free Mint Remaining: ${remainingMint}`;
+            supply.innerHTML = `Available Supply: difference / maxSupply`;
+            saleActive.textContent = `Sale Open: ${publicActive} ` ;
+            
+            
+            let difference = maxSupply - totalSupply;
+            supply.innerHTML = `Available Supply: ${difference} / ${maxSupply}`;
+            
+            mintButton.addEventListener("click", () => {
+            const amount = document.getElementById('counter').innerText;
+            let payableAmount = 0;
+            console.log("price", amount);
+            if (amount == 1 && remainingMint == 1)
+              {
+                payableAmount = 0;
+              }
+            else{
+               payableAmount = amount * 0.008; 
+            }
+            mintNFT(amount, payableAmount);
+              
+            });
+          } catch (error) {
+            connectButton.style.display = "none";
+            errorSection.style.display = "block";
+            errorText.innerHTML = `ERROR! check if connected to mainnet!`;
+            console.error("Error connecting to MetaMask:", error);
+          }
+        } else {
+          connectButton.style.display = "none";
+          errorSection.style.display = "block";
+          errorText.innerHTML = `ERROR! check if connected to ethereum wallet and no external plugins are causing issues!`;
+          console.error("MetaMask not found");
+        }
+      };
+      const connectButton = document.querySelector("#mintBt");
+      connectButton.addEventListener("click", connectMetaMask);
+      
+      // Counter variable
+      let counter = 0;
+
+      // Function to update the counter display
+      function updateCounter() {
+          document.getElementById('counter').innerText = counter;
+      }
+
+      // Function to increment the counter
+      function increment() {
+          if (counter < 10) {
+              counter++;
+              updateCounter();
+          }
+      }
+
+      // Function to decrement the counter
+      function decrement() {
+          if (counter > 0) {
+              counter--;
+              updateCounter();
+          }
+      }
+    </script>
+  </body>
+</html>
