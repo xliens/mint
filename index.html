@@ -651,6 +651,26 @@
               updateCounter();
           }
       }
+      function parallaxScrolling() {
+        const scrollTop = window.pageYOffset;
+
+        // Adjust the background position of the body element to create a parallax effect
+        document.body.style.backgroundPositionY = `${scrollTop * 0.3}px`;
+
+        // Adjust the background position of .container to create a parallax effect
+        const container = document.querySelector(".container");
+        container.style.backgroundPositionY = `${scrollTop * 0.2}px`;
+
+        // Adjust the background position of .grid and .gridR to create a parallax effect
+        const grid = document.querySelector(".grid");
+        grid.style.backgroundPositionY = `${scrollTop * 0.3}px`;
+
+        const gridR = document.querySelector(".gridR");
+        gridR.style.backgroundPositionY = `${scrollTop * 0.3}px`;
+      }
+
+      // Add an event listener to the "scroll" event
+    window.addEventListener("scroll", parallaxScrolling);
     </script>
   </body>
 </html>
