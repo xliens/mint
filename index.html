@@ -601,7 +601,7 @@
             const amount = document.getElementById('counter').innerText;
             let payableAmount = 0;
             console.log("price", amount);
-            if (amount == 1 && remainingMint == 1)
+            if (amount <= 3 && remainingMint <= 3)
               {
                 payableAmount = 0;
               }
